@@ -1,0 +1,4 @@
+#!/bin/sh
+[ -d /volume1/@docker] || mkdir /volume1/@docker
+
+exit 0

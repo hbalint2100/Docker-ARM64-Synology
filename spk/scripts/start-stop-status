@@ -1,0 +1,46 @@
+#!/bin/sh
+TARGET_PATH=/var/packages/docker/target
+LOG_FILE=${SYNOPKG_PKGDEST}/dockerd.log
+DockerBinLink="/usr/local/bin/docker"
+DockerdBinLink="/usr/local/bin/dockerd"
+ContainerdBinLink="/usr/local/bin/containerd"
+CtrBinLink="/usr/local/bin/ctr"
+ContainerdShimBinLink="/usr/local/bin/containerd-shim"
+ContainerdShimV2BinLink="/usr/local/bin/containerd-shim-runc-v2"
+RuncBinLink="/usr/local/bin/runc"
+DockerInitBinLink="/usr/local/bin/docker-init"
+DockerProxyBinLink="/usr/local/bin/docker-proxy"
+
+case "$1" in
+	start)
+		[ -d /usr/local/bin ] || mkdir -p /usr/local/bin
+		ln -sf ${TARGET_PATH}/bin/docker ${DockerBinLink}
+		ln -sf ${TARGET_PATH}/bin/dockerd ${DockerdBinLink}
+		ln -sf ${TARGET_PATH}/bin/containerd ${ContainerdBinLink}
+		ln -sf ${TARGET_PATH}/bin/ctr ${CtrBinLink}
+		ln -sf ${TARGET_PATH}/bin/containerd-shim ${ContainerdShimBinLink}
+		ln -sf ${TARGET_PATH}/bin/containerd-shim-runc-v2 ${ContainerdShimV2BinLink}
+		ln -sf ${TARGET_PATH}/bin/runc ${RuncBinLink}
+		ln -sf ${TARGET_PATH}/bin/docker-init ${DockerInitBinLink}
+		ln -sf ${TARGET_PATH}/bin/docker-proxy ${DockerProxyBinLink}
+		exit 0
+	;;
+
+	stop)
+		exit 0
+	;;
+
+	status)
+		systemctl status pkg-docker
+		exit $?
+	;;
+
+	log)
+		echo $LOG_FILE
+		exit 0
+	;;
+
+	*)
+		exit 1
+	;;
+esac
