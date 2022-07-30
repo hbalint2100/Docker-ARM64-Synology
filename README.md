@@ -8,3 +8,5 @@ I created a synology package for easier and permanent docker install for rtd1296
 - Start service: `sudo systemctl start pkg-docker`
 - Stop service: `sudo systemctl stop pkg-docker`
 - Get status: `sudo systemctl status pkg-docker`
+## Note
+Docker containers must be run with `--network host` argument -> no port mapping
